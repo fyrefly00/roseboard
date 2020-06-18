@@ -3,6 +3,20 @@
 <head>
     <title>Scoreboard</title>
     <%@page import="java.sql.*;"%>
+
+
+    <style>
+        h1 {
+          border: 2px solid black;
+          padding: 30px;
+          font-family:Gill Sans,sans-serif
+        }
+        p1 {
+            border: 2px solid black;
+            padding: 30px;
+            font-family:Gill Sans,sans-serif
+        }
+        </style>
 </head>
 <body>
     <%
@@ -12,6 +26,26 @@
         Connection con=(Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/data","webapp","password");
         Statement st=con.createStatement();
         ResultSet rs=st.executeQuery("select * from reports;");
+
+        while(rs.next()) {
+                String winner =rs.getString("winner");
+                String situation = rs.getString("situation");
+                if(winner.equals("Point for Rose")) {
+                    rpoints ++;
+                }
+                else if(winner.equals("Point for Technology")) {
+                    tpoints++;
+                }
+        }
+
+        
+        out.println("<h1><center><br>The Rose-Hulman Institute of Technology vs. Technology <br><br>");
+        out.println("<br>Rose: " + rpoints + "<br>");
+        out.println("<br>Technology: " + tpoints +  "<br><br></center></h1>");
+        
+
+        rs=st.executeQuery("select * from reports;");
+
         %><table border=1 align=center style="text-align:center">
         <thead>
             <tr>
@@ -22,14 +56,6 @@
         <tbody>
             <%while(rs.next())
             {
-                String winner =rs.getString("winner");
-                String situation = rs.getString("situation");
-                if(winner.equals("Point for Rose")) {
-                    rpoints ++;
-                }
-                else if(winner.equals("Point for Technology")) {
-                    tpoints++;
-                }
                 %>
                 <tr>
                     <td><%=rs.getString("winner")%></td>
@@ -43,9 +69,7 @@
         
         st.close();
         con.close();
-        out.println("<br>Total Score <br><br>");
-        out.println("<br>Rose: " + rpoints + "<br><br>");
-        out.println("<br>Technology: " + tpoints +  "<br><br>");
+
     }
     catch(Exception e){
         out.print(e.getMessage());%><br><%
@@ -62,7 +86,7 @@
      <br><br>
      <label for="Details">Details:</label>
      <input type="text" id="scoredetails" name="Details"><br><br>
-     <input type="submit">
+     <input type="submit" value="Submit Report">
  </form>
 </center>
 </html>
