@@ -1,8 +1,5 @@
+Rose-Hulman vs. Technology Scoreboard / Tracker  
+Built with Maven and aimed for Tomcat  
 
-
-Rose-Hulman vs. Technology Scoreboard / Tracker
-Built with Maven and aimed for Tomcat
-
-TO-DO:
+TO-DO:  
 Clean formatting up
-Yes
